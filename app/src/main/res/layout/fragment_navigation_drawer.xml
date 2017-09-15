@@ -1,0 +1,38 @@
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00171F"
+
+        tools:context="com.example.leonk.materialtest2.NavigationDrawerFragment">
+        <!-- TODO: Update blank fragment layout -->
+        <LinearLayout
+            android:id="@+id/containerDrawerImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/myBlack">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="@dimen/image_nav_margin_top"
+                android:background="@drawable/drawerbg" />
+
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/drawerRecycleList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/containerDrawerImage"></android.support.v7.widget.RecyclerView>
+
+
+    </RelativeLayout>
+
+
+
+
