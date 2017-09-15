@@ -3,7 +3,6 @@ package com.example.leonk.materialtest2;
 /**
  * Created by Leonk on 9/14/2017.
  */
-//Another awesome comment
 public class Information {
 
     int iconId;
