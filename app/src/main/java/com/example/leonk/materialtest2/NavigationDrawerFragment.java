@@ -62,7 +62,7 @@ public class NavigationDrawerFragment extends Fragment {
     public NavigationDrawerFragment() {
         // Required empty public constructor
     }
-
+    //this is Julius' awesome comment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
