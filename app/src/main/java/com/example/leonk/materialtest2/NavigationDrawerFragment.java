@@ -2,6 +2,7 @@ package com.example.leonk.materialtest2;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,7 +26,7 @@ import static android.R.attr.id;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationDrawerFragment extends Fragment {
+public class NavigationDrawerFragment extends Fragment implements RecycleAdapter.ClickListener{
 
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
@@ -77,6 +78,8 @@ public class NavigationDrawerFragment extends Fragment {
 
 
         adapter=new RecycleAdapter(getActivity(),getData());
+
+        adapter.setClickListener(this);       //listener for the interface  the fragment is the object that implements the ClickListener
 
         recyclerView.setAdapter(adapter);
 
@@ -205,5 +208,13 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
 
+    @Override
+    public void itemClicked(View view, int position) {
 
+
+         startActivity(new Intent(getActivity(),Main2Activity.class));
+
+
+
+    }
 }

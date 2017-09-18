@@ -22,6 +22,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
 
     private  Context context;
     private  LayoutInflater inflater;
+    private  ClickListener clickListener;
 
     List<Information> data= Collections.emptyList();        //To handle data and prevent null pointer exception
 
@@ -77,6 +78,9 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
 
     }
 
+
+
+
     @Override
     public int getItemCount() {
 
@@ -111,7 +115,14 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
         @Override
         public void onClick(View v) {
 
-            context.startActivity(new Intent(context,Main2Activity.class));      //start Main2Activity
+//            context.startActivity(new Intent(context,Main2Activity.class));      //start Main2Activity
+
+            if(clickListener!= null ){
+
+
+
+                clickListener.itemClicked(v,getAdapterPosition());
+            }
 
         }
 
@@ -127,4 +138,21 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
 
 
     }
+
+    public interface ClickListener{
+
+        public void itemClicked(View view,int position);
+
+
+
+
+    }
+
+    public void setClickListener(ClickListener clickListener){
+
+        this.clickListener=clickListener;
+
+    }
+
+
 }
