@@ -1,6 +1,7 @@
 package com.example.leonk.materialtest2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -87,7 +88,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
 
 
 
-    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{   //to handle on click
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {   //to handle on click
 
         //Passing views in the custom layout
 
@@ -97,21 +98,33 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
         public MyViewHolder(View itemView) {
             super(itemView);
 
+            itemView.setOnClickListener(this);   //any item clicked will open the main2Activity
+
 
             icon= (ImageView) itemView.findViewById(R.id.listIcon);
 
             title=(TextView) itemView.findViewById(R.id.listText);
 
-            icon.setOnClickListener(this);               // to tap on the icon
+//            icon.setOnClickListener(this);               // to tap on the icon on click to delete
         }
 
         @Override
         public void onClick(View v) {
 
-//            Toast.makeText(itemView.getContext(),"Item clicked at "+getAdapterPosition(),Toast.LENGTH_SHORT).show();
-
-            delete(getAdapterPosition());
+            context.startActivity(new Intent(context,Main2Activity.class));      //start Main2Activity
 
         }
+
+//        @Override
+//        public void onClick(View v) {
+//
+////            Toast.makeText(itemView.getContext(),"Item clicked at "+getAdapterPosition(),Toast.LENGTH_SHORT).show();
+//
+//            delete(getAdapterPosition());
+//
+//        }
+
+
+
     }
 }
