@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:id="@+id/customRow_linearLayout"
-
+    android:background="@color/mywhite"
     >
     <ImageView
         android:layout_width="wrap_content"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:text="Item 1"
         android:layout_gravity="center_vertical"
-        android:textColor="#FAFAFA"
+        android:textColor="@color/primary_text"
         android:id="@+id/listText"
 
         app:layout_constraintLeft_toLeftOf="@+id/customRow_linearLayout"

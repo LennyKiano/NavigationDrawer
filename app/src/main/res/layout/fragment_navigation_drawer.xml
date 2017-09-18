@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#00171F"
+        android:background="@color/mywhite"
 
         tools:context="com.example.leonk.materialtest2.NavigationDrawerFragment">
         <!-- TODO: Update blank fragment layout -->
@@ -12,14 +12,20 @@
             android:id="@+id/containerDrawerImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/myBlack">
+
+            >
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/drawerbg"
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="@dimen/image_nav_margin_top"
-                android:background="@drawable/drawerbg" />
+
+                />
+
+                <!--android:background="@drawable/drawerbg"/>-->
 
 
         </LinearLayout>

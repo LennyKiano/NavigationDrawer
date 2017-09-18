@@ -8,7 +8,7 @@
     </style>
 
 
-    <style name="AppTheme.Base" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
 
 
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -23,8 +23,8 @@
 
     <style name="myCustomToolbar" parent="ThemeOverlay.AppCompat.Light">
 
-        <item name="android:textColorPrimary">@color/colorAccent</item>
-        <item name="android:textColorSecondary">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/mywhite</item>
+        <item name="android:textColorSecondary">@color/mywhite</item>
 
 
 

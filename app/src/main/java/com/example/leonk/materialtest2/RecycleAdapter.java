@@ -102,7 +102,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
 
             title=(TextView) itemView.findViewById(R.id.listText);
 
-            icon.setOnClickListener(this);
+            icon.setOnClickListener(this);               // to tap on the icon
         }
 
         @Override
