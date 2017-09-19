@@ -22,7 +22,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
 
     private  Context context;
     private  LayoutInflater inflater;
-    private  ClickListener clickListener;
+//    private  ClickListener clickListener;
 
     List<Information> data= Collections.emptyList();        //To handle data and prevent null pointer exception
 
@@ -92,7 +92,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
 
 
 
-    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {   //to handle on click
+    class MyViewHolder extends RecyclerView.ViewHolder {   //to handle on click
 
         //Passing views in the custom layout
 
@@ -102,7 +102,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            itemView.setOnClickListener(this);   //any item clicked will open the main2Activity
+//            itemView.setOnClickListener(this);   //any item clicked will open the main2Activity
 
 
             icon= (ImageView) itemView.findViewById(R.id.listIcon);
@@ -112,19 +112,19 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
 //            icon.setOnClickListener(this);               // to tap on the icon on click to delete
         }
 
-        @Override
-        public void onClick(View v) {
-
-//            context.startActivity(new Intent(context,Main2Activity.class));      //start Main2Activity
-
-            if(clickListener!= null ){
-
-
-
-                clickListener.itemClicked(v,getAdapterPosition());
-            }
-
-        }
+//        @Override
+//        public void onClick(View v) {
+//
+////            context.startActivity(new Intent(context,Main2Activity.class));      //start Main2Activity
+//
+//            if(clickListener!= null ){
+//
+//
+//
+//                clickListener.itemClicked(v,getAdapterPosition());
+//            }
+//
+//        }
 
 //        @Override
 //        public void onClick(View v) {
@@ -139,20 +139,20 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
 
     }
 
-    public interface ClickListener{
-
-        public void itemClicked(View view,int position);
-
-
-
-
-    }
-
-    public void setClickListener(ClickListener clickListener){
-
-        this.clickListener=clickListener;
-
-    }
+//    public interface ClickListener{
+//
+//        public void itemClicked(View view,int position);
+//
+//
+//
+//
+//    }
+//
+//    public void setClickListener(ClickListener clickListener){
+//
+//        this.clickListener=clickListener;
+//
+//    }
 
 
 }

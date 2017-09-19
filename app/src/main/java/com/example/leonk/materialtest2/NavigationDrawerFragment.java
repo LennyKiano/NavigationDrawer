@@ -12,10 +12,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +30,25 @@ import static android.R.attr.id;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationDrawerFragment extends Fragment implements RecycleAdapter.ClickListener{
+
+
+/*
+
+   STEPS TO HANDLE THE RECYCLER CLICK
+
+   1. Create a class that EXTENDS RecyclerView.OnItemTouchListener
+   2. Create an interface inside that class that supports click and long click and indicates the view that was clicked and the position where it was clicked
+   3. Create a GestureDetector to detect ACTION_UP single tap and long press events
+   4. Return true from the singleTap to indicate your Gesture Detector has consumed the event
+   5. Find the childView containing the coordinates specified by the motionEvent and if the childView is not null and the listener is not null either fire a long click event
+   6. Use the OnInterceptTouchEvent of your RecyclerView to check if the childView is not null, the listener is not null and the gesture detector consumed the touch event
+   7. If the above condition holds true, fire the click event.
+
+
+
+
+ */
+public class NavigationDrawerFragment extends Fragment {
 
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
@@ -79,12 +101,28 @@ public class NavigationDrawerFragment extends Fragment implements RecycleAdapter
 
         adapter=new RecycleAdapter(getActivity(),getData());
 
-        adapter.setClickListener(this);       //listener for the interface  the fragment is the object that implements the ClickListener
+//        adapter.setClickListener(this);       //listener for the interface  the fragment is the object that implements the ClickListener
 
         recyclerView.setAdapter(adapter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));   //We are using a linear layout to display thing in order
 
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+                Toast.makeText(getActivity(),"OnClick"+position,Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+                Toast.makeText(getActivity(),"OnLongClick"+position,Toast.LENGTH_SHORT).show();
+
+
+            }
+        }));
 
         return layout;
     }
@@ -208,11 +246,101 @@ public class NavigationDrawerFragment extends Fragment implements RecycleAdapter
     }
 
 
-    @Override
-    public void itemClicked(View view, int position) {
+//    @Override
+//    public void itemClicked(View view, int position) {
+//
+//
+//         startActivity(new Intent(getActivity(),Main2Activity.class));
+//
+//
+//
+//    }
+
+    class RecyclerTouchListener implements RecyclerView.OnItemTouchListener{ //Step 1
+
+        private GestureDetector gestureDetector;  //Step 3
+        private ClickListener clickListener;
 
 
-         startActivity(new Intent(getActivity(),Main2Activity.class));
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ClickListener clickListener){
+
+            Log.d("RecyclerView","Constructor Invoked");
+
+            this.clickListener=clickListener;
+
+            gestureDetector= new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
+
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+
+                    Log.d("Gesture","onSingleTapUp" +e);
+
+                    return true;           //step 4
+
+
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+
+                    View child=recyclerView.findChildViewUnder(e.getX(),e.getY());      //step 5
+
+                    if(child!=null && clickListener!=null){
+
+                        clickListener.onLongClick(child,recyclerView.getChildAdapterPosition(child));
+                    }
+
+                    Log.d("Gesture","onLongPress" +e);
+
+
+                    super.onLongPress(e);
+                }
+            });
+
+
+        }
+
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+
+            View child=rv.findChildViewUnder(e.getX(),e.getY());      //step 5
+
+            if(child!=null && clickListener!=null && gestureDetector.onTouchEvent(e)){
+
+                clickListener.onClick(child,rv.getChildAdapterPosition(child));
+
+
+            }
+
+
+
+
+//            Log.d("RecyclerView","onInterceptTouchEvent"+gestureDetector.onTouchEvent(e)+" " +e);
+
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+            Log.d("RecyclerView","onTouchEvent" +e);
+
+
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
+    }
+
+    public static interface ClickListener{  //Step 2
+
+        public void onClick(View view,int position);
+        public void onLongClick(View view,int position);
+
+
 
 
 
