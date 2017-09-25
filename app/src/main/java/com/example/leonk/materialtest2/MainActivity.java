@@ -1,15 +1,21 @@
 package com.example.leonk.materialtest2;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -55,6 +61,18 @@ public class MainActivity extends AppCompatActivity {
 
         mTabs=(SlidingTabLayout) findViewById(R.id.tabs);
 
+        mTabs.setDistributeEvenly(true);                 //Tabs take equal space on the screen
+
+        mTabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+
+                return ContextCompat.getColor(getApplicationContext(),R.color.colorAccent);
+            }
+        });
+
+        mTabs.setCustomTabView(R.layout.custom_tab_view,R.id.tabText);
+
         mTabs.setViewPager(mPager);
 
 
@@ -93,13 +111,15 @@ public class MainActivity extends AppCompatActivity {
 
     class MyPageAdapter extends FragmentPagerAdapter{   //Adapter for the ViewPager
 
-        String[] tabs;
+        String[] tabText=getResources().getStringArray(R.array.tabs);
+
+        int[] icons={R.drawable.ic_action_home,R.drawable.ic_action_hot,R.drawable.ic_action_person};
 
 
         public MyPageAdapter(FragmentManager fm) {
             super(fm);
 
-            tabs=getResources().getStringArray(R.array.tabs);
+            tabText=getResources().getStringArray(R.array.tabs);
         }
 
         @Override
@@ -111,8 +131,21 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public CharSequence getPageTitle(int position) {
-            return tabs[position];
+        public CharSequence getPageTitle(int position) {    //where you display content of the tab
+
+            Drawable drawable= ResourcesCompat.getDrawable(getResources(),icons[position],null);
+
+            drawable.setBounds(0,0,36,36);   //To set space for icons to take up
+
+            ImageSpan imageSpan=new ImageSpan(drawable);          //To embed images in the text because this method returns Char and not images
+
+            SpannableString spannableString= new SpannableString(" ");        //To mix text and String. The space is to make sure the icon appear
+
+            spannableString.setSpan(imageSpan,0,spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);   //Merge Type
+
+//            return tabText[position];
+
+            return spannableString;
         }
 
         @Override
